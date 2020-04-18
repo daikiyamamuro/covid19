@@ -48,13 +48,13 @@ export default {
     }
   },
   watch: {
-    sliderValue(newValue, oldValue) {
+    sliderValue(newValue, _oldValue) {
       this.$emit('sliderInput', newValue)
     }
   },
   methods: {
     getSliderLabels(index) {
-      if(index < this.chartData.length) {
+      if (index < this.chartData.length) {
         return this.chartData[index].label
       }
       return this.chartData[this.chartData.length - 1].label

@@ -49,7 +49,12 @@ import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 import DateSelectSlider from '@/components/DateSelectSlider.vue'
 
 export default {
-  components: { DataView, DataSelector, DataViewBasicInfoPanel, DateSelectSlider },
+  components: {
+    DataView,
+    DataSelector,
+    DataViewBasicInfoPanel,
+    DateSelectSlider
+  },
   props: {
     title: {
       type: String,
@@ -94,8 +99,19 @@ export default {
   },
   data() {
     const minSpanDays = 14
-    const displaySpanLower = !this.chartData || this.chartData.length < minSpanDays ? 0 : this.chartData.length - minSpanDays
-    const displaySpanUpper = !this.chartData || this.chartData.length < minSpanDays ? 0 : this.chartData.length - 1
+
+    let displaySpanLower = 0
+    if (!this.chartData || this.chartData.length < minSpanDays)
+      displaySpanLower = 0
+    else
+      displaySpanLower = this.chartData.length - minSpanDays
+
+    let displaySpanUpper = 0
+    if (!this.chartData || this.chartData.length < minSpanDays)
+      displaySpanUpper = 0
+    else
+      displaySpanUpper = this.chartData.length - 1
+
     return {
       dataKind: 'transition',
       minSpanDays: minSpanDays,
@@ -105,7 +121,7 @@ export default {
   },
   computed: {
     spanMin() {
-        return 0
+      return 0
     },
     spanMax() {
       return this.chartData.length - 1
